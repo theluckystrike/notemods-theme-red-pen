@@ -1,0 +1,153 @@
+/* red-pen — editorial review. High-ink text, crimson accent, small-caps
+   headings, margin-note callouts. Original CSS, MIT. No network assets. */
+
+:root {
+  --u2-crimson: #b3243c;
+  --u2-font-text: "Iowan Old Style", Charter, Georgia, serif;
+  --u2-font-ui: -apple-system, "Segoe UI", sans-serif;
+  --u2-font-mono: Menlo, Consolas, monospace;
+}
+
+.theme-light {
+  --u2-bg: #fdfcfa;
+  --u2-bg-soft: #f0edea;
+  --u2-text: #1c1a19;          /* ~15.5:1 */
+  --u2-text-muted: #5d5852;
+  --u2-link: #a11b32;          /* ~7.4:1 */
+  --u2-focus: #b3243c;
+  --u2-border: #d9d4cd;
+  --u2-note: #faf1e8;
+  --u2-annotate: #8a5a00;
+}
+
+.theme-dark {
+  --u2-bg: #1b1917;
+  --u2-bg-soft: #242120;
+  --u2-text: #ece7e0;          /* ~13:1 */
+  --u2-text-muted: #a49c92;
+  --u2-link: #ff8296;          /* ~8.7:1 */
+  --u2-focus: #ff8296;
+  --u2-border: #3c3833;
+  --u2-note: #2a2320;
+  --u2-annotate: #e8b04a;
+}
+
+.theme-light, .theme-dark {
+  --background-primary: var(--u2-bg);
+  --background-secondary: var(--u2-bg-soft);
+  --text-normal: var(--u2-text);
+  --text-muted: var(--u2-text-muted);
+  --link-color: var(--u2-link);
+  --text-accent: var(--u2-link);
+  --interactive-accent: var(--u2-focus);
+  --border-color: var(--u2-border);
+  --background-modifier-border: var(--u2-border);
+  --divider-color: var(--u2-border);
+  --background-modifier-border-hover: var(--u2-focus);
+  --background-modifier-border-focus: var(--u2-focus);
+  --input-focus-border-color: var(--u2-focus);
+}
+
+/* Body: near-black serif on paper, medium measure */
+.markdown-source-view.mod-cm6 .cm-scroller,
+.markdown-preview-view {
+  font-family: var(--u2-font-text);
+  font-size: 1.02em;
+  line-height: 1.7;
+}
+.markdown-source-view.is-readable-line-width .cm-sizer,
+.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
+  max-width: 38rem;
+}
+
+/* Headings: small caps with baseline rule, crimson section numbers feel */
+.markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
+.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6,
+.HyperMD-header {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  border-bottom: 1.5px solid var(--u2-crimson);
+  padding-bottom: 0.12em;
+}
+.markdown-rendered h1 { font-size: 1.75em; border-bottom-width: 3px; }
+.markdown-rendered h2 { font-size: 1.4em; }
+.markdown-rendered h3 { font-size: 1.15em; border-bottom-style: dotted; }
+
+/* Paragraphs: editorial measure, hanging punctuation feel via slight indent on follow-ups */
+.markdown-rendered p { margin-block: 0.8em; }
+
+/* Emphasis: markup-review affordances */
+.markdown-rendered del { color: var(--u2-crimson); }
+.markdown-rendered mark { background: var(--u2-note); color: inherit; }
+
+/* Lists: numbered review steps with crimson markers */
+.markdown-rendered ol { padding-inline-start: 2em; }
+.markdown-rendered ol > li::marker { color: var(--u2-crimson); font-weight: 700; }
+.markdown-rendered li { margin-block: 0.2em; }
+
+/* Tasks: pen circles */
+.markdown-rendered .task-list-item-checkbox {
+  border: 1.5px solid var(--u2-crimson);
+  border-radius: 50%;
+  background: transparent;
+}
+.markdown-rendered .task-list-item-checkbox:checked {
+  background: var(--u2-crimson);
+  box-shadow: inset 0 0 0 2px var(--u2-bg);
+}
+
+/* Callouts: margin notes, dashed annotation borders */
+.callout {
+  background: var(--u2-note);
+  border: 1.5px dashed var(--u2-crimson);
+  border-radius: 2px;
+  padding: 0.7em 1em;
+  mix-blend-mode: normal;
+}
+.callout-title { font-variant: small-caps; letter-spacing: 0.05em; }
+.callout-content::before {
+  content: "";
+  display: block;
+  width: 2.5em;
+  border-top: 2px solid var(--u2-annotate);
+  margin-bottom: 0.4em;
+}
+
+/* Code: compact, boxed */
+.markdown-rendered :not(pre) > code {
+  font-family: var(--u2-font-mono);
+  background: var(--u2-bg-soft);
+  border-radius: 2px;
+}
+.markdown-rendered pre { border-left: 3px solid var(--u2-crimson); border-radius: 2px; }
+
+/* Tables: rule lines, small caps headers */
+.markdown-rendered table { border-collapse: collapse; }
+.markdown-rendered th { font-variant: small-caps; border-bottom: 2px solid var(--u2-crimson); }
+.markdown-rendered td, .markdown-rendered th { border: none; border-bottom: 1px solid var(--u2-border); }
+
+/* Links and focus */
+.markdown-rendered a, .cm-s-obsidian .cm-hmd-internal-link { color: var(--u2-link); }
+:is(.workspace, .markdown-rendered, .cm-s-obsidian) :focus-visible {
+  outline: 2px solid var(--u2-focus);
+  outline-offset: 2px;
+}
+
+/* Tabs/nav/search/settings: paper chrome */
+.workspace-tab-header.is-active .workspace-tab-header-inner { color: var(--u2-link); }
+.nav-file-title.is-active, .nav-folder-title.is-active { background: var(--u2-note); }
+.search-result-file-title { color: var(--u2-text); }
+
+::selection { background: rgba(179, 36, 60, 0.18); }
+
+/* Narrow layouts: calmer heading scale, scrollable tables */
+@media (max-width: 640px) {
+  .markdown-rendered h1 { font-size: 1.5em; border-bottom-width: 2px; }
+  .markdown-rendered table { display: block; overflow-x: auto; }
+  .callout { padding: 0.6em 0.8em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
